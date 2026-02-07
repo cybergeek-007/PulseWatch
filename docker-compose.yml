@@ -1,0 +1,108 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database with TimescaleDB extension
+  postgres:
+    image: timescale/timescaledb:latest-pg15
+    container_name: pulsewatch-postgres
+    environment:
+      POSTGRES_USER: ${DB_USER:-pulsewatch}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-pulsewatch_secret}
+      POSTGRES_DB: ${DB_NAME:-pulsewatch}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./server/src/database/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-pulsewatch} -d ${DB_NAME:-pulsewatch}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - pulsewatch-network
+
+  # Redis for caching, sessions, and job queue
+  redis:
+    image: redis:7-alpine
+    container_name: pulsewatch-redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-redis_secret}
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - pulsewatch-network
+
+  # Mailhog for email testing in development
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: pulsewatch-mailhog
+    ports:
+      - "${SMTP_PORT:-1025}:1025"
+      - "${MAILHOG_UI_PORT:-8025}:8025"
+    networks:
+      - pulsewatch-network
+
+  # Server API (uncomment when ready to run in Docker)
+  # server:
+  #   build:
+  #     context: .
+  #     dockerfile: server/Dockerfile
+  #   container_name: pulsewatch-server
+  #   environment:
+  #     NODE_ENV: ${NODE_ENV:-development}
+  #     DB_HOST: postgres
+  #     DB_PORT: 5432
+  #     DB_USER: ${DB_USER:-pulsewatch}
+  #     DB_PASSWORD: ${DB_PASSWORD:-pulsewatch_secret}
+  #     DB_NAME: ${DB_NAME:-pulsewatch}
+  #     REDIS_HOST: redis
+  #     REDIS_PORT: 6379
+  #     REDIS_PASSWORD: ${REDIS_PASSWORD:-redis_secret}
+  #   ports:
+  #     - "${API_PORT:-3001}:3001"
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #     redis:
+  #       condition: service_healthy
+  #   networks:
+  #     - pulsewatch-network
+
+  # Worker (uncomment when ready to run in Docker)
+  # worker:
+  #   build:
+  #     context: .
+  #     dockerfile: worker/Dockerfile
+  #   container_name: pulsewatch-worker
+  #   environment:
+  #     NODE_ENV: ${NODE_ENV:-development}
+  #     DB_HOST: postgres
+  #     DB_PORT: 5432
+  #     DB_USER: ${DB_USER:-pulsewatch}
+  #     DB_PASSWORD: ${DB_PASSWORD:-pulsewatch_secret}
+  #     DB_NAME: ${DB_NAME:-pulsewatch}
+  #     REDIS_HOST: redis
+  #     REDIS_PORT: 6379
+  #     REDIS_PASSWORD: ${REDIS_PASSWORD:-redis_secret}
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #     redis:
+  #       condition: service_healthy
+  #   networks:
+  #     - pulsewatch-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  pulsewatch-network:
+    driver: bridge
