@@ -17,7 +17,7 @@ A production-ready API Monitoring SaaS platform where developers can monitor the
 - Update monitor configuration
 - Delete monitors (soft delete)
 - Pause/Resume monitors
-- Real-time status indicators
+- Real-time status 
 
 ### Technical Features
 - TypeScript for type safety
