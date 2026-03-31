@@ -1,343 +1,412 @@
-# PulseWatch - API Monitoring SaaS Dashboard
+<h1 align="center">⚡ PulseWatch</h1>
 
-A production-ready API Monitoring SaaS platform where developers can monitor their APIs, third-party dependencies, and get alerted about downtime, slow responses, or breaking changes.
+<p align="center">
+  <strong>Never let your APIs go dark.</strong><br/>
+  Production-ready API monitoring that actually slaps. 🔥
+</p>
 
-## Features (Phase 1 Complete)
+<p align="center">
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-features">Features</a> •
+  <a href="#%EF%B8%8F-tech-stack">Tech Stack</a> •
+  <a href="#-api-reference">API</a> •
+  <a href="#-roadmap">Roadmap</a>
+</p>
 
-### Authentication System
-- User registration with email validation
-- Login with JWT tokens (access + refresh token pattern)
-- Password reset flow
-- Logout functionality
-- Protected routes
+<p align="center">
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/>
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React"/>
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js"/>
+  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
+  <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis"/>
+  <img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
+</p>
 
-### Monitor Management
-- Create monitors with configurable settings
-- List monitors with pagination and filtering
-- Update monitor configuration
-- Delete monitors (soft delete)
-- Pause/Resume monitors
-- Real-time status indicators
+---
 
-### Technical Features
-- TypeScript for type safety
-- REST API with proper error handling
-- Input validation and sanitization
-- Rate limiting
-- JWT authentication with HTTP-only cookies
-- PostgreSQL with TimescaleDB for time-series data
-- Redis for caching and sessions
-- Docker for development environment
+## 🤔 What is PulseWatch?
 
-## Tech Stack
+**PulseWatch** is a SaaS dashboard for developers who are tired of getting paged at 3 AM because their APIs went down and *nobody told them*.
 
-### Frontend
-- React 18 with TypeScript
-- Vite for build tooling
-- TanStack Query for data fetching
-- Tailwind CSS for styling
-- shadcn/ui components
-- React Router for navigation
-- Axios for API calls
+Monitor your APIs, third-party dependencies, and microservices. Get alerted about downtime, slow responses, or breaking changes — before your users complain on Twitter.
 
-### Backend
-- Node.js with Express
-- TypeScript
-- PostgreSQL with TimescaleDB extension
-- Redis for caching
-- JWT for authentication
-- Pino for logging
-- Zod for validation
+```
+🟢 api.yourapp.com         200 OK    45ms    99.99% uptime
+🟢 stripe.com/v1/charges   200 OK    120ms   100% uptime
+🔴 legacy-service.local    503 💀    —       Alert sent!
+```
 
-### DevOps
-- Docker & Docker Compose
-- Environment-based configuration
+---
 
-## Project Structure
+## ✨ Features
+
+### 🔐 **Rock-Solid Authentication**
+```
+✅ JWT + Refresh Token Pattern   ✅ HTTP-Only Cookies
+✅ Password Reset Flow           ✅ Email Verification
+✅ Rate Limiting                 ✅ Bcrypt Hashing (12 rounds)
+```
+
+### 📊 **Monitor Management**
+```
+✅ Create/Edit/Delete Monitors   ✅ Pause/Resume Anytime
+✅ Real-time Status              ✅ Soft Deletes
+✅ Pagination & Filtering        ✅ Custom Check Intervals
+```
+
+### 🛡️ **Security First**
+```
+✅ Input Validation (Zod)        ✅ SQL Injection Protection
+✅ XSS Prevention (Helmet)       ✅ CORS Configured
+✅ Rate Limiting                 ✅ Parameterized Queries
+```
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+| Tool | Version |
+|------|---------|
+| Node.js | 18+ |
+| npm | 9+ |
+| Docker | Latest |
+| Git | Latest |
+
+### One-Liner Setup
+
+```bash
+# Clone → Install → Configure → Start → Migrate → Seed → Done! 🎉
+git clone <repo-url> pulsewatch && cd pulsewatch && npm install && cp .env.example .env && npm run docker:up && npm run db:migrate && npm run db:seed
+```
+
+### Or, Step by Step
+
+```bash
+# 1️⃣ Clone it
+git clone <repository-url>
+cd pulsewatch
+
+# 2️⃣ Install dependencies
+npm install
+
+# 3️⃣ Set up your environment
+cp .env.example .env
+# 📝 Edit .env with your secrets
+
+# 4️⃣ Fire up the infrastructure
+npm run docker:up
+
+# 5️⃣ Run migrations
+npm run db:migrate
+
+# 6️⃣ (Optional) Seed test data
+npm run db:seed
+
+# 7️⃣ Launch! 🚀
+npm run dev
+```
+
+### 🌐 Access Points
+
+| Service | URL |
+|---------|-----|
+| 🖥️ Frontend | http://localhost:5173 |
+| ⚙️ Backend API | http://localhost:3001 |
+| 📬 MailHog (Dev Email) | http://localhost:8025 |
+
+### 🔑 Test Credentials
+
+```
+📧 Email:    test@pulsewatch.io
+🔒 Password: password123
+```
+
+---
+
+## 🏗️ Tech Stack
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### Frontend 🎨
+
+| Tech | Purpose |
+|------|---------|
+| **React 18** | UI Framework |
+| **TypeScript** | Type Safety |
+| **Vite** | Build Tool (⚡ fast) |
+| **TanStack Query** | Data Fetching |
+| **Tailwind CSS** | Styling |
+| **shadcn/ui** | Components |
+| **React Router** | Navigation |
+| **Axios** | HTTP Client |
+
+</td>
+<td width="50%" valign="top">
+
+### Backend ⚙️
+
+| Tech | Purpose |
+|------|---------|
+| **Node.js** | Runtime |
+| **Express** | Web Framework |
+| **TypeScript** | Type Safety |
+| **PostgreSQL** | Primary DB |
+| **TimescaleDB** | Time-Series Data |
+| **Redis** | Cache & Sessions |
+| **JWT** | Authentication |
+| **Pino** | Logging |
+| **Zod** | Validation |
+
+</td>
+</tr>
+</table>
+
+---
+
+## 📁 Project Structure
 
 ```
 pulsewatch/
-├── client/                 # React frontend
-│   ├── src/
-│   │   ├── components/     # UI components
-│   │   ├── contexts/       # React contexts
-│   │   ├── hooks/          # Custom hooks
-│   │   ├── pages/          # Page components
-│   │   ├── services/       # API services
-│   │   └── lib/            # Utilities
-│   └── package.json
-├── server/                 # Express backend
-│   ├── src/
-│   │   ├── config/         # Configuration
-│   │   ├── controllers/    # Route controllers
-│   │   ├── database/       # Migrations & seeds
-│   │   ├── middleware/     # Express middleware
-│   │   ├── models/         # Database models
-│   │   ├── routes/         # API routes
-│   │   └── services/       # Business logic
-│   └── package.json
-├── shared/                 # Shared types & utilities
+│
+├── 🎨 client/              # React frontend
+│   └── src/
+│       ├── components/     # UI building blocks
+│       ├── contexts/       # React contexts
+│       ├── hooks/          # Custom hooks
+│       ├── pages/          # Route pages
+│       ├── services/       # API layer
+│       └── lib/            # Utils & helpers
+│
+├── ⚙️ server/              # Express backend
+│   └── src/
+│       ├── config/         # App config
+│       ├── controllers/    # Route handlers
+│       ├── database/       # Migrations & seeds
+│       ├── middleware/     # Express middleware
+│       ├── models/         # Data models
+│       ├── routes/         # API routes
+│       └── services/       # Business logic
+│
+├── 📦 shared/              # Shared code
 │   └── src/
 │       ├── types/          # TypeScript types
 │       ├── constants/      # Shared constants
 │       └── utils/          # Shared utilities
-├── worker/                 # Monitoring job processor (Phase 2)
-├── docker-compose.yml      # Docker services
-└── package.json            # Root package.json
+│
+├── 🔧 worker/              # Job processor (Phase 2)
+├── 🐳 docker-compose.yml
+└── 📄 package.json
 ```
 
-## Getting Started
+---
 
-### Prerequisites
+## 📡 API Reference
 
-- Node.js 18+ and npm 9+
-- Docker and Docker Compose
-- Git
+### 🔐 Authentication
 
-### Installation
+| Method | Endpoint | What it does |
+|:------:|----------|--------------|
+| `POST` | `/api/auth/register` | Create new account |
+| `POST` | `/api/auth/login` | Get your tokens |
+| `POST` | `/api/auth/logout` | Invalidate session |
+| `POST` | `/api/auth/refresh` | Get fresh access token |
+| `GET` | `/api/auth/me` | Who am I? |
+| `POST` | `/api/auth/password-reset-request` | Forgot password? |
+| `POST` | `/api/auth/password-reset-confirm` | Set new password |
+| `POST` | `/api/auth/verify-email` | Confirm email |
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd pulsewatch
+### 📊 Monitors
+
+| Method | Endpoint | What it does |
+|:------:|----------|--------------|
+| `GET` | `/api/monitors` | List all monitors |
+| `POST` | `/api/monitors` | Create a monitor |
+| `GET` | `/api/monitors/:id` | Get monitor details |
+| `PUT` | `/api/monitors/:id` | Update monitor |
+| `DELETE` | `/api/monitors/:id` | Delete monitor |
+| `POST` | `/api/monitors/:id/pause` | ⏸️ Pause monitoring |
+| `POST` | `/api/monitors/:id/resume` | ▶️ Resume monitoring |
+
+---
+
+## 🗄️ Database Schema
+
+```sql
+┌─────────────────┐     ┌──────────────────┐
+│     users       │────▶│  user_settings   │
+└────────┬────────┘     └──────────────────┘
+         │
+         ▼
+┌─────────────────┐     ┌──────────────────┐
+│    monitors     │────▶│     checks       │  ← TimescaleDB hypertable
+└────────┬────────┘     └──────────────────┘
+         │
+         ├────────────▶ incidents
+         │
+         └────────────▶ notifications
+
++ refresh_tokens | password_reset_tokens | status_pages
 ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+---
 
-3. Set up environment variables:
-```bash
-cp .env.example .env
-# Edit .env with your configuration
-```
+## ⚙️ Environment Variables
 
-4. Start the infrastructure services (PostgreSQL, Redis, MailHog):
-```bash
-npm run docker:up
-```
-
-5. Run database migrations:
-```bash
-npm run db:migrate
-```
-
-6. (Optional) Seed the database with test data:
-```bash
-npm run db:seed
-```
-
-### Running the Application
-
-#### Development Mode (All Services)
-
-```bash
-npm run dev
-```
-
-This starts:
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:3001
-- MailHog UI: http://localhost:8025
-
-#### Individual Services
-
-```bash
-# Frontend only
-npm run dev:client
-
-# Backend only
-npm run dev:server
-
-# Worker only (Phase 2)
-npm run dev:worker
-```
-
-### Default Test Credentials
-
-After seeding the database:
-- Email: `test@pulsewatch.io`
-- Password: `password123`
-
-## API Documentation
-
-### Authentication Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/register` | Register new user |
-| POST | `/api/auth/login` | Login user |
-| POST | `/api/auth/logout` | Logout user |
-| POST | `/api/auth/refresh` | Refresh access token |
-| GET | `/api/auth/me` | Get current user |
-| POST | `/api/auth/password-reset-request` | Request password reset |
-| POST | `/api/auth/password-reset-confirm` | Confirm password reset |
-| POST | `/api/auth/verify-email` | Verify email address |
-
-### Monitor Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/monitors` | List all monitors |
-| POST | `/api/monitors` | Create new monitor |
-| GET | `/api/monitors/:id` | Get monitor details |
-| PUT | `/api/monitors/:id` | Update monitor |
-| DELETE | `/api/monitors/:id` | Delete monitor |
-| POST | `/api/monitors/:id/pause` | Pause monitor |
-| POST | `/api/monitors/:id/resume` | Resume monitor |
-
-## Database Schema
-
-### Core Tables
-
-- **users** - User accounts and profiles
-- **user_settings** - User preferences and notification settings
-- **monitors** - API endpoints to monitor
-- **checks** - Individual health check results (TimescaleDB hypertable)
-- **incidents** - Downtime tracking and resolution
-- **notifications** - Alert history
-- **status_pages** - Public status page configurations
-- **refresh_tokens** - JWT refresh token storage
-- **password_reset_tokens** - Password reset token storage
-
-## Environment Variables
-
-### Required
+<details>
+<summary><b>🔴 Required</b> (click to expand)</summary>
 
 ```env
-# Database
+# 🗄️ Database
 DB_HOST=localhost
 DB_PORT=5432
 DB_USER=pulsewatch
 DB_PASSWORD=your_secure_password
 DB_NAME=pulsewatch
 
-# Redis
+# 📦 Redis
 REDIS_HOST=localhost
 REDIS_PORT=6379
 REDIS_PASSWORD=your_redis_password
 
-# JWT
+# 🔑 JWT Secrets (CHANGE THESE IN PRODUCTION!)
 JWT_SECRET=your_super_secret_jwt_key
 JWT_REFRESH_SECRET=your_super_secret_refresh_key
 ```
 
-### Optional
+</details>
+
+<details>
+<summary><b>🟡 Optional</b> (click to expand)</summary>
 
 ```env
-# Application
+# 🌐 Application
 NODE_ENV=development
 APP_URL=http://localhost:5173
 API_URL=http://localhost:3001
 
-# Email
+# 📧 Email (MailHog in dev)
 SMTP_HOST=localhost
 SMTP_PORT=1025
 SMTP_FROM=noreply@pulsewatch.io
 
-# Rate Limiting
+# 🚦 Rate Limiting
 RATE_LIMIT_WINDOW_MS=900000
 RATE_LIMIT_MAX_REQUESTS=100
 ```
 
-## Development Commands
+</details>
+
+---
+
+## 🛠️ Commands Cheatsheet
 
 ```bash
-# Start all services in development
-npm run dev
+# 🚀 Development
+npm run dev              # Start everything
+npm run dev:client       # Frontend only
+npm run dev:server       # Backend only
+npm run dev:worker       # Worker only (Phase 2)
 
-# Build all packages
-npm run build
+# 🔨 Build
+npm run build            # Build all packages
+npm run typecheck        # Type checking
+npm run lint             # Linting
 
-# Run type checking
-npm run typecheck
+# 🗄️ Database
+npm run db:migrate       # Run migrations
+npm run db:seed          # Seed data
+npm run db:reset         # ⚠️ Reset everything
 
-# Run linting
-npm run lint
-
-# Database operations
-npm run db:migrate    # Run migrations
-npm run db:seed       # Seed database
-npm run db:reset      # Reset database (DANGER!)
-
-# Docker operations
-npm run docker:up     # Start infrastructure
-npm run docker:down   # Stop infrastructure
-npm run docker:logs   # View logs
+# 🐳 Docker
+npm run docker:up        # Start services
+npm run docker:down      # Stop services
+npm run docker:logs      # View logs
 ```
 
-## Security Considerations
+---
 
-1. **Authentication**
-   - JWT tokens with short expiration (15 minutes)
-   - Refresh tokens stored in HTTP-only cookies
-   - Password hashing with bcrypt (12 rounds)
-   - Rate limiting on auth endpoints
+## 🔒 Security Checklist
 
-2. **Input Validation**
-   - All inputs validated with express-validator
-   - SQL injection protection via parameterized queries
-   - XSS protection via helmet middleware
+### Development ✅
+- [x] JWT with short expiration (15 min)
+- [x] Refresh tokens in HTTP-only cookies
+- [x] Password hashing (bcrypt, 12 rounds)
+- [x] Rate limiting on auth endpoints
+- [x] Input validation with Zod
+- [x] SQL injection protection
+- [x] XSS prevention with Helmet
+- [x] CORS properly configured
 
-3. **API Security**
-   - CORS configured for specific origins
-   - Helmet for security headers
-   - Rate limiting on all endpoints
+### Production 🚨
+- [ ] Change default JWT secrets
+- [ ] Enable HTTPS (TLS 1.3)
+- [ ] Configure production SMTP
+- [ ] Set up log aggregation
+- [ ] Configure monitoring & alerting
+- [ ] Enable automated DB backups
+- [ ] Set up WAF/DDoS protection
 
-4. **Production Checklist**
-   - [ ] Change default JWT secrets
-   - [ ] Enable HTTPS
-   - [ ] Configure production SMTP
-   - [ ] Set up log aggregation
-   - [ ] Configure monitoring & alerting
-   - [ ] Enable database backups
+---
 
-## Roadmap
+## 🗺️ Roadmap
 
-### Phase 1: Authentication & Monitor CRUD ✅
-- User authentication system
-- Monitor management
-- Basic dashboard
+```
+Phase 1 ████████████████████ ✅ COMPLETE
+  └─ Auth System + Monitor CRUD + Dashboard
 
-### Phase 2: Worker System & Health Checks
-- Background job processor
-- Automated health checks
-- Check result storage
+Phase 2 ████████░░░░░░░░░░░░ 🚧 IN PROGRESS
+  └─ Worker System + Health Checks + Result Storage
 
-### Phase 3: Data Visualization
-- Historical performance charts
-- Uptime statistics
-- Response time analytics
+Phase 3 ░░░░░░░░░░░░░░░░░░░░ 📋 PLANNED
+  └─ Charts + Uptime Stats + Response Analytics
 
-### Phase 4: Alerting System
-- Email notifications
-- Webhook notifications
-- Alert threshold configuration
+Phase 4 ░░░░░░░░░░░░░░░░░░░░ 📋 PLANNED
+  └─ Email Alerts + Webhooks + Custom Thresholds
 
-### Phase 5: Status Pages
-- Public status page generation
-- Custom branding
-- Incident history
+Phase 5 ░░░░░░░░░░░░░░░░░░░░ 📋 PLANNED
+  └─ Public Status Pages + Custom Branding
 
-### Phase 6: Advanced Features
-- Multi-region monitoring
-- Response time percentiles
-- API schema validation
-- Incident post-mortems
+Phase 6 ░░░░░░░░░░░░░░░░░░░░ 🔮 FUTURE
+  └─ Multi-Region + Percentiles + Schema Validation
+```
 
-## Contributing
+---
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+## 🤝 Contributing
 
-## License
+We love contributions! Here's how:
 
-This project is licensed under the MIT License.
+```bash
+# 1. Fork it 🍴
+# 2. Create your feature branch
+git checkout -b feature/awesome-feature
 
-## Support
+# 3. Commit your changes
+git commit -m '✨ Add awesome feature'
 
-For support, email support@pulsewatch.io or join our Slack channel.
+# 4. Push to the branch
+git push origin feature/awesome-feature
+
+# 5. Open a Pull Request 🎉
+```
+
+---
+
+## 📄 License
+
+MIT License — go wild! 🎸
+
+---
+
+<p align="center">
+  <b>Built with ☕ and questionable amounts of caffeine.</b><br/>
+  <sub>Questions? Reach out at <a href="mailto:support@pulsewatch.io">support@pulsewatch.io</a></sub>
+</p>
+
+<p align="center">
+  <a href="#">⬆️ Back to Top</a>
+</p>
